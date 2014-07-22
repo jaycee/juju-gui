@@ -82,6 +82,16 @@ describe('Ghost Deployer Extension', function() {
     });
   };
 
+  it('sets the ghost service config to its defaults', function() {
+    window.flags.mv = true;
+    var charm = makeCharm();
+    charm.set('options', { foo: { default: 'bar' }});
+    ghostDeployer.db.services = new Y.juju.models.ServiceList();
+    ghostDeployer.deployService(charm);
+    var service = ghostDeployer.db.services.item(0);
+    assert.deepEqual(service.get('config'), {foo: 'bar'});
+  });
+
   it('calls the env deploy method with default charm data', function() {
     window.flags.mv = true;
     var charm = makeCharm();
