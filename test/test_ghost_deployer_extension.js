@@ -55,7 +55,8 @@ describe('Ghost Deployer Extension', function() {
       charms: { add: utils.makeStubFunction({ get: getMethod }) },
       services: {
         ghostService: utils.makeStubFunction({
-          get: utils.makeStubFunction('ghost-service-id')
+          get: utils.makeStubFunction('ghost-service-id'),
+          set: utils.makeStubFunction()
         })
       },
       notifications: { add: utils.makeStubFunction() },

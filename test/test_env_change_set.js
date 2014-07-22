@@ -560,7 +560,7 @@ describe('Environment Change Set', function() {
       });
 
       it('creates a new `setConfig` record for a queued service', function() {
-        var args = [1, {}, 'foo', {}];
+        var args = [1, 2, 'foo', 'bar', function() {}, {modelId: 'baz'}];
         // This assumes that the _lazyDeploy tests complete successfully.
         var key = ecs._lazyDeploy(args);
         var record = ecs.changeSet[key];
