@@ -29,6 +29,7 @@ YUI.add('charmstore-api', function(Y) {
     @class APIv4
   */
   function APIv4(config) {
+    this.urlPrefix = config.urlPrefix;
     this.charmstoreURL = config.charmstoreURL;
     this.apiPath = 'v4';
     // We are using the webHandler class included in our source as a wrapper
@@ -335,7 +336,7 @@ YUI.add('charmstore-api', function(Y) {
     getIconPath: function(charmId, isBundle) {
       var path;
       if (typeof isBundle === 'boolean' && isBundle) {
-        path = '/juju-ui/assets/images/non-sprites/bundle.svg';
+        path = this.urlPrefix + '/juju-ui/assets/images/non-sprites/bundle.svg';
       } else {
         // Get the charm ID from the service.  In some cases, this will be
         // the charm URL with a protocol, which will need to be removed.
