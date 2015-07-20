@@ -46,6 +46,8 @@ var juju_config = {
   // You can also use the :flags:/simulateEvents feature flag.
   simulateEvents: false,
   readOnly: false,
+  // Prefix if urls aren't starting at root
+  urlPrefix: '',
   // Set the GA_key to enable Google Analytics usage and calls. Also implies
   // using cookies.
   GA_key: 'UA-41463568-2',

@@ -47,6 +47,8 @@ var juju_config = {
   // There is also a hotkey to toggle the simulator.
   simulateEvents: false,
   readOnly: false,
+  // Prefix if urls aren't starting at root
+  urlPrefix: '',
   // Set the GA_key to enable Google Analytics usage and calls. Also implies
   // using cookies. For the debug configuration, the GA_key should be blank to
   // prevent muddying the gathered statistics.
