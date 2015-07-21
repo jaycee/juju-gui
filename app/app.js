@@ -718,21 +718,14 @@ YUI.add('juju-gui', function(Y) {
     _setupCharmstore: function(Charmstore) {
       if (this.get('charmstore') === undefined) {
         var jujuConfig = window.juju_config,
-            charmstoreURL,
-            urlPrefix;
+            charmstoreURL;
         if (!jujuConfig || !jujuConfig.charmstoreURL) {
           console.error('No juju config for charmstoreURL availble');
         } else {
           charmstoreURL = jujuConfig.charmstoreURL;
         }
-        if (!jujuConfig.urlPrefix) {
-          urlPrefix = '';
-        } else {
-          urlPrefix = jujuConfig.urlPrefix;
-        }
         this.set('charmstore', new Charmstore({
           charmstoreURL: charmstoreURL,
-          urlPrefix: urlPrefix
         }));
       }
     },

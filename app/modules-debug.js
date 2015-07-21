@@ -522,6 +522,10 @@ var GlobalConfig = {
           fullpath: '/juju-ui/utils/search-widget-mgmt-extension.js'
         },
 
+        'juju-utils': {
+            fullpath: '/juju-ui/utils/utils.js'
+        },
+
         'autodeploy-extension': {
           fullpath: '/juju-ui/widgets/autodeploy-extension.js'
         },

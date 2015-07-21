@@ -22,6 +22,7 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 YUI.add('charmstore-api', function(Y) {
 
   var jujuModels = Y.juju.models;
+  var utils = Y.juju.utils;
 
   /**
     Implementation of the charmstore v4 api.
@@ -29,7 +30,6 @@ YUI.add('charmstore-api', function(Y) {
     @class APIv4
   */
   function APIv4(config) {
-    this.urlPrefix = config.urlPrefix;
     this.charmstoreURL = config.charmstoreURL;
     this.apiPath = 'v4';
     // We are using the webHandler class included in our source as a wrapper
@@ -336,7 +336,8 @@ YUI.add('charmstore-api', function(Y) {
     getIconPath: function(charmId, isBundle) {
       var path;
       if (typeof isBundle === 'boolean' && isBundle) {
-        path = this.urlPrefix + '/juju-ui/assets/images/non-sprites/bundle.svg';
+        var urlPrefix = utils.getAssetsPrefix();
+        path = urlPrefix + '/images/non-sprites/bundle.svg';
       } else {
         // Get the charm ID from the service.  In some cases, this will be
         // the charm URL with a protocol, which will need to be removed.
@@ -443,6 +444,7 @@ YUI.add('charmstore-api', function(Y) {
     'juju-env-web-handler',
     'querystring-stringify',
     'juju-charm-models',
-    'juju-bundle-models'
+    'juju-bundle-models',
+    'juju-utils'
   ]
 });
