@@ -29,7 +29,8 @@ YUI.add('juju-topology-panzoom', function(Y) {
   var views = Y.namespace('juju.views'),
       models = Y.namespace('juju.models'),
       d3 = Y.namespace('d3'),
-      components = Y.namespace('d3-components');
+      components = Y.namespace('d3-components'),
+      utils = Y.namespace('juju.utils');
 
   /**
    * Handle PanZoom within a Topology.
@@ -95,6 +96,8 @@ YUI.add('juju-topology-panzoom', function(Y) {
           options = topo.options,
           currentScale = topo.get('scale'),
           slider;
+      var prefix = utils.getAssetsPrefix(),
+          thumbUrl = prefix + '/images/non-sprites/zoom-handle.png';
 
       if (self.slider) {
         return;
@@ -107,7 +110,7 @@ YUI.add('juju-topology-panzoom', function(Y) {
         max: options.minSlider,
         axis: 'y',
         length: '300px',
-        thumbUrl: '/juju-ui/assets/images/non-sprites/zoom-handle.png',
+        thumbUrl: thumbUrl,
         value: this.toSlider(currentScale)
       });
       // XXX: selection to module option
@@ -326,6 +329,7 @@ YUI.add('juju-topology-panzoom', function(Y) {
     'slider',
     'd3',
     'd3-components',
-    'juju-models'
+    'juju-models',
+    'juju-utils'
   ]
 });

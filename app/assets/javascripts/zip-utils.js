@@ -26,9 +26,10 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 YUI.add('zip-utils', function(Y) {
 
+  var utils = Y.namespace('juju.utils');
   // Configure the zip.js library. The workerScriptsPath must point to the
   // location of inflate.zip and deflate.zip.
-  zip.workerScriptsPath = '/juju-ui/assets/javascripts/';
+  zip.workerScriptsPath = utils.getAssetsPrefix() + '/javascripts/';
 
   var module = Y.namespace('juju.ziputils');
 
@@ -165,6 +166,7 @@ YUI.add('zip-utils', function(Y) {
 }, '0.1.0', {
   requires: [
     'base',
+    'juju-utils',
     'zip'
   ]
 });

@@ -32,6 +32,7 @@ YUI.add('juju-topology-service', function(Y) {
       localCharmHelpers = Y.namespace('juju').localCharmHelpers,
       models = Y.namespace('juju.models'),
       topoUtils = Y.namespace('juju.topology.utils'),
+      jujuUtils = Y.namespace('juju.utils'),
       utils = Y.namespace('juju.views.utils'),
       views = Y.namespace('juju.views'),
       ziputils = Y.namespace('juju.ziputils');
@@ -78,8 +79,8 @@ YUI.add('juju-topology-service', function(Y) {
         topo = this.get('component'),
         service_scale = this.service_scale,
         service_scale_width = this.service_scale_width,
-        service_scale_height = this.service_scale_height;
-
+        service_scale_height = this.service_scale_height,
+        prefix = jujuUtils.getAssetsPrefix();
     // Apply Position Annotations
     // This is done after the services_boxes
     // binding as the event handler will
@@ -136,7 +137,7 @@ YUI.add('juju-topology-service', function(Y) {
     node.select('.service-block-image').each(function(d) {
       var curr_node = d3.select(this),
           curr_href = curr_node.attr('xlink:href'),
-          new_href = '/juju-ui/assets/svgs/';
+          new_href = prefix + '/svgs/';
       if (d.subordinate) {
         new_href += 'sub_module.svg';
       } else if ((d.pending || d.deleted)) {
@@ -177,7 +178,7 @@ YUI.add('juju-topology-service', function(Y) {
         });
 
     subRelationIndicator.append('image')
-        .attr({'xlink:href': '/juju-ui/assets/svgs/sub_relation.svg',
+        .attr({'xlink:href': prefix + '/svgs/sub_relation.svg',
           'width': 87,
           'height': 47});
     subRelationIndicator.append('text').append('tspan')
@@ -242,7 +243,7 @@ YUI.add('juju-topology-service', function(Y) {
       if (!existing) {
         existing = d3.select(this).append('image')
                         .attr({'class': 'exposed-indicator on',
-              'xlink:href': '/juju-ui/assets/svgs/exposed.svg',
+              'xlink:href': prefix + '/svgs/exposed.svg',
               'width': 32,
               'height': 32
             })
@@ -276,7 +277,7 @@ YUI.add('juju-topology-service', function(Y) {
                     .append('image')
                     .attr({
                       'class': 'pending-indicator',
-                      'xlink:href': '/juju-ui/assets/svgs/pending.svg',
+                      'xlink:href': prefix + '/svgs/pending.svg',
                       'width': 16,
                       'height': 16
                     })
@@ -1543,8 +1544,9 @@ YUI.add('juju-topology-service', function(Y) {
       });
       var selection = this.selectionFromServiceNames(serviceNames);
       selection.classed(topoUtils.getVisibilityClasses('highlight'));
+      var prefix = jujuUtils.getAssetsPrefix();
       selection.select('.service-block-image')
-        .attr('href', '/juju-ui/assets/svgs/service_module_selected.svg');
+        .attr('href', prefix + '/svgs/service_module_selected.svg');
     },
 
     /**
@@ -1575,12 +1577,14 @@ YUI.add('juju-topology-service', function(Y) {
       });
       var selection = this.selectionFromServiceNames(serviceNames);
       selection.classed(topoUtils.getVisibilityClasses('unhighlight'));
-      var image, href;
+      var prefix = jujuUtils.getAssetsPrefix(),
+          image,
+          href;
       selection.each(function(d) {
         image = d3.select(this).select('.service-block-image');
-        href = '/juju-ui/assets/svgs/service_module.svg';
+        href = prefix + '/svgs/service_module.svg';
         if (d.pending || d.deleted) {
-          href = '/juju-ui/assets/svgs/service_module_pending.svg';
+          href = prefix + '/svgs/service_module_pending.svg';
         }
         image.attr('href', href);
       });
@@ -1804,10 +1808,11 @@ YUI.add('juju-topology-service', function(Y) {
     'd3',
     'd3-components',
     'd3-statusbar',
-    'juju-templates',
     'juju-models',
-    'local-charm-import-helpers',
+    'juju-templates',
+    'juju-utils',
     'juju-viewlet-manager',
+    'local-charm-import-helpers',
     'local-new-upgrade-inspector',
     'request-series-inspector',
     'zip-utils'

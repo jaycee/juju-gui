@@ -523,7 +523,7 @@ var GlobalConfig = {
         },
 
         'juju-utils': {
-            fullpath: '/juju-ui/utils/utils.js'
+          fullpath: '/juju-ui/utils/utils.js'
         },
 
         'autodeploy-extension': {

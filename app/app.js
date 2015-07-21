@@ -725,7 +725,7 @@ YUI.add('juju-gui', function(Y) {
           charmstoreURL = jujuConfig.charmstoreURL;
         }
         this.set('charmstore', new Charmstore({
-          charmstoreURL: charmstoreURL,
+          charmstoreURL: charmstoreURL
         }));
       }
     },

@@ -29,6 +29,7 @@ YUI.add('juju-topology-relation', function(Y) {
   var views = Y.namespace('juju.views'),
       models = Y.namespace('juju.models'),
       utils = Y.namespace('juju.views.utils'),
+      jujuUtils = Y.namespace('juju.utils'),
       topoUtils = Y.namespace('juju.topology.utils'),
       d3 = Y.namespace('d3'),
       components = Y.namespace('d3-components'),
@@ -387,6 +388,7 @@ YUI.add('juju-topology-relation', function(Y) {
                      Math.max(s[1], t[1]) -
                      Math.abs((s[1] - t[1]) / 2)] + ')';
           });
+      var prefix = jujuUtils.getAssetsPrefix();
       g.filter(function(d) {
         var currStatus = d3.select(this).select('image')
             .attr('xlink:href') || '';
@@ -398,7 +400,7 @@ YUI.add('juju-topology-relation', function(Y) {
         .selectAll('image')
         .attr('xlink:href', function(d) {
             return (
-                '/juju-ui/assets/svgs/relation-icon-' +
+                prefix + '/svgs/relation-icon-' +
                 d.aggregatedStatus + '.svg');
           });
       return g;

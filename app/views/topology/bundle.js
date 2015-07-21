@@ -29,7 +29,7 @@ YUI.add('juju-view-bundle', function(Y) {
 
   var juju = Y.namespace('juju'),
       views = Y.namespace('juju.views'),
-      utils = Y.namespace('juju.views.utils'),
+      utils = Y.namespace('juju.utils'),
       models = Y.namespace('juju.models'),
       d3 = Y.namespace('d3'),
       components = Y.namespace('d3-components'),
@@ -168,24 +168,26 @@ YUI.add('juju-view-bundle', function(Y) {
      */
     createServiceNode: function(node, self) {
       // Add the highlight svg image to each element
+      var prefix = utils.getAssetsPrefix(),
+          svgUrl = prefix + '/images/non-sprites/service-highlight.svg';
+
       node.append('image')
-          .attr({
+        .attr({
             class: 'highlight',
             width: SERVICE_SIZE + 10,
             height: SERVICE_SIZE + 10,
             transform: 'translate(-5,-5)',
-            'xlink:href':
-                '/juju-ui/assets/images/non-sprites/service-highlight.svg'
+            'xlink:href': svgUrl
           });
       node.append('image')
        .classed('service-icon', true)
        .attr({
-                'xlink:href': function(d) {
-                  return d.icon;
-                },
-                width: SERVICE_SIZE,
-                height: SERVICE_SIZE
-              });
+            'xlink:href': function(d) {
+              return d.icon;
+            },
+            width: SERVICE_SIZE,
+            height: SERVICE_SIZE
+          });
     },
 
     /**
@@ -257,8 +259,10 @@ YUI.add('juju-view-bundle', function(Y) {
                 return 'translate(' + [d.w, d.h / 2 - 26] + ')';
               });
 
+      var prefix = utils.getAssetsPrefix(),
+          svgUrl = prefix + '/svgs/sub_relation.svg';
       subRelationIndicator.append('image')
-        .attr({'xlink:href': '/juju-ui/assets/svgs/sub_relation.svg',
+        .attr({'xlink:href': svgUrl,
             'width': 87,
             'height': 47});
       subRelationIndicator.append('text').append('tspan')
@@ -296,12 +300,13 @@ YUI.add('juju-view-bundle', function(Y) {
       var exposed = node.filter(function(d) {
         return d.exposed;
       });
+      svgUrl = prefix + '/svgs/exposed.svg';
       exposed.each(function(d) {
         var existing = Y.one(this).one('.exposed-indicator');
         if (!existing) {
           existing = d3.select(this).append('image')
         .attr({'class': 'exposed-indicator on',
-                    'xlink:href': '/juju-ui/assets/svgs/exposed.svg',
+                    'xlink:href': svgUrl,
                     'width': 32,
                     'height': 32
                   })
@@ -491,6 +496,7 @@ YUI.add('juju-view-bundle', function(Y) {
     'd3-components',
     'juju-models',
     'juju-topology',
+    'juju-utils',
     'juju-view-utils'
   ]
 });

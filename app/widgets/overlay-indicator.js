@@ -20,7 +20,9 @@ with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 YUI.add('browser-overlay-indicator', function(Y) {
-  var ns = Y.namespace('juju.widgets.browser');
+  var ns = Y.namespace('juju.widgets.browser'),
+      utils = Y.namespace('juju.utils');
+
   ns.OverlayIndicator = Y.Base.create('overlay-indicator', Y.Widget, [], {
 
     /**
@@ -164,7 +166,15 @@ YUI.add('browser-overlay-indicator', function(Y) {
        * @type {string}
        */
       loading_image: {
-        value: '/juju-ui/assets/images/non-sprites/loading-spinner.gif'
+        /**
+        * @method loading_image.valueFn
+        * @return {String} The path to the loading image.
+        *
+        */
+        valueFn: function() {
+          var prefix = utils.getAssetsPrefix();
+          return prefix + '/images/non-sprites/loading-spinner.gif';
+        }
       }
     }
   });
@@ -249,6 +259,7 @@ YUI.add('browser-overlay-indicator', function(Y) {
 
 }, '0.1.0', { requires: [
   'base',
+  'juju-utils',
   'node-screen',
   'spinner',
   'widget'
