@@ -53,8 +53,11 @@ YUI.add('charmstore-api', function(Y) {
         with a response of >= 400.
     */
     _makeRequest: function(path, successCallback, failureCallback) {
-      this.bakery.sendGetRequest(path, this.charmstoreURL + this.apiPath + '/set-auth-cookie',
-        successCallback, failureCallback);
+      this.bakery.sendGetRequest(path,
+        this.charmstoreURL + this.apiPath + '/set-auth-cookie',
+        successCallback,
+        failureCallback
+      );
     },
 
     /**
