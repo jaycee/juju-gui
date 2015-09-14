@@ -64,8 +64,9 @@ YUI.add('juju-env-web-handler', function(Y) {
       @param {Function} progressCallback The progress event callback.
       @param {Function} completedCallback The load event callback.
     */
-    sendPostRequest: function(path, headers, data, username, password, withCredentials,
-                              progressCallback, completedCallback) {
+    sendPostRequest: function(path, headers, data, username, password,
+                              withCredentials, progressCallback,
+                              completedCallback) {
       var xhr = this._createRequest(
           path, 'POST', headers, username, password, withCredentials,
           progressCallback, completedCallback);
@@ -205,8 +206,9 @@ YUI.add('juju-env-web-handler', function(Y) {
       @param {Function} completedCallback The load event callback.
       @return {Object} The asynchronous request instance.
     */
-    _createRequest: function(path, method, headers, username, password, withCredentials,
-                             progressCallback, completedCallback) {
+    _createRequest: function(path, method, headers, username, password,
+                             withCredentials, progressCallback,
+                             completedCallback) {
       var xhr = new XMLHttpRequest({});
       // Set up the event handlers.
       var progressHandler = this._createProgressHandler(progressCallback);

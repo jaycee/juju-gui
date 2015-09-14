@@ -39,15 +39,20 @@ YUI.add('juju-env-bakery', function(Y) {
    *
    * @class Bakery
    */
-  function Bakery(config) {
-    // Invoke Base constructor, passing through arguments.
-    Bakery.superclass.constructor.apply(this, arguments);
-    this.webhandler = new Y.juju.environments.web.WebHandler();
-  }
 
-  Bakery.NAME = 'bakery';
+  var Bakery = Y.Base.create('Bakery',
+      Y.Base, [], {
 
-  Y.extend(Bakery, Y.Base, {
+    /**
+      Initialize.
+
+      @method initializer
+      @return {undefined} Nothing.
+    */
+    initializer: function() {
+      this.webhandler = new Y.juju.environments.web.WebHandler();
+    },
+
     /**
       Send get request.
 
@@ -60,10 +65,10 @@ YUI.add('juju-env-bakery', function(Y) {
     */
     sendGetRequest: function(path, setCookiePath,
                              successCallback, failureCallback) {
-      var macaroon = Y.Cookie.get('Macaroons');
+      var macaroons = Y.Cookie.get('Macaroons');
       var headers = {'Bakery-Protocol-Version': 1};
-      if (macaroon !== null) {
-        headers['Macaroons'] = macaroon;
+      if (macaroons !== null) {
+        headers['Macaroons'] = macaroons;
       }
 
       this.webhandler.sendGetRequest(
@@ -96,9 +101,8 @@ YUI.add('juju-env-bakery', function(Y) {
                                              successCallback, failureCallback,
                                              response) {
       var target = response.target;
-      if (target.status === 407 ||
-          (target.status === 401 &&
-           target.getresponseHeader('WWW-Authenticate') === 'Macaroon')) {
+      if (target.status === 401 &&
+          target.getResponseHeader('WWW-Authenticate') === 'Macaroon') {
         var jsonResponse = JSON.parse(target.responseText);
         this._authenticate(
           jsonResponse.Info.Macaroon,
@@ -204,7 +208,8 @@ YUI.add('juju-env-bakery', function(Y) {
                                          thirdPartyLocation, condition,
                                          successCallback, failureCallback) {
       thirdPartyLocation += '/discharge';
-      var headers = {'Content-Type': 'application/x-www-form-urlencoded'};
+      var headers = {'Bakery-Protocol-Version': 1,
+                     'Content-Type': 'application/x-www-form-urlencoded'};
       var content = 'id=' + encodeURI(condition) +
                     '&location=' + encodeURI(location);
       this.webhandler.sendPostRequest(
