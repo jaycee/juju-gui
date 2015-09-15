@@ -102,7 +102,7 @@ YUI.add('juju-env-bakery', function(Y) {
                                              response) {
       var target = response.target;
       if (target.status === 401 &&
-          target.getResponseHeader('WWW-Authenticate') === 'Macaroon') {
+          target.getResponseHeader('Www-Authenticate') === 'Macaroon') {
         var jsonResponse = JSON.parse(target.responseText);
         this._authenticate(
           jsonResponse.Info.Macaroon,
@@ -181,7 +181,7 @@ YUI.add('juju-env-bakery', function(Y) {
       var content = JSON.stringify({'Macaroons': jsonMacaroon});
       this.webhandler.sendPutRequest(
         authCookiePath,
-        null, content, null, null, null, true,
+        null, content, null, null, true, null,
         this._requestHandler.bind(
           this,
           function() {
@@ -214,7 +214,7 @@ YUI.add('juju-env-bakery', function(Y) {
                     '&location=' + encodeURI(location);
       this.webhandler.sendPostRequest(
           thirdPartyLocation,
-          headers, content, null, null, null, false,
+          headers, content, null, null, false, null,
           this._requestHandler.bind(
             this,
             function(e) {
@@ -256,7 +256,7 @@ YUI.add('juju-env-bakery', function(Y) {
 
       this.webhandler.sendGetRequest(
           response.Info.WaitURL,
-          null, null, null, null, false,
+          null, null, null, false, null,
           this._requestHandler.bind(
             this,
             function(e) {

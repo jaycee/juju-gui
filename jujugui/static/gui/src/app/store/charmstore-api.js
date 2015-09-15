@@ -38,6 +38,8 @@ YUI.add('charmstore-api', function(Y) {
     // instantiation as well as a different _makeRequest method for the
     // prototype.
     this.bakery = new Y.juju.environments.web.Bakery();
+    this.setAuthCookiePath = this.charmstoreURL + this.apiPath +
+                             '/set-auth-cookie'
   }
 
   APIv4.prototype = {
@@ -53,8 +55,9 @@ YUI.add('charmstore-api', function(Y) {
         with a response of >= 400.
     */
     _makeRequest: function(path, successCallback, failureCallback) {
-      this.bakery.sendGetRequest(path,
-        this.charmstoreURL + this.apiPath + '/set-auth-cookie',
+      this.bakery.sendGetRequest(
+        path,
+        this.setAuthCookiePath,
         successCallback,
         failureCallback
       );
