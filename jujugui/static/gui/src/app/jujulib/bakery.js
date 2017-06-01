@@ -6,6 +6,59 @@ var module = module;
 
 (function (exports) {
 
+// function toMacaroon(data) {
+//   return macaroonlib.generateMacaroons(JSON.parse(atob(data))); 
+// }
+
+// function fromMacaroon(macaroons) {
+//   if (Array.isArray(macaroons)) {
+//     macaroons = macaroons.map(m => m.exportAsObject());
+//   } else {
+//     macaroons = macaroons.exportAsObject();
+//   }
+//   return btoa(JSON.stringify(macaroons));
+// }
+// function setExpiration(macaroons) {
+//   const expirationDate = getExpirationDate();
+//   macaroons = toMacaroon(macaroons);
+//   if (Array.isArray(macaroons)) {
+//     macaroons.map(m => {
+//       if (m._location !== "") {
+//         m.addFirstPartyCaveat('time-before ' + timestamp(expirationDate));
+//       }
+//     });
+//   } else {
+//     macaroons.addFirstPartyCaveat('time-before ' + timestamp(expirationDate));
+//   }
+//   return fromMacaroon(macaroons);
+// }
+
+// /**
+//  Generate RFC 3339 timestamps from a Date object
+//  */
+// const timestamp = function (date) {
+//   const offset = date.getTimezoneOffset();
+//   const pad = (amount, width) => {
+//     let padding = "";
+//     while (
+//         padding.length < width - 1 &&
+//         amount < Math.pow(10, width - padding.length - 1)) {
+//       padding += "0";
+//     }
+//     return padding + amount.toString();
+//   }
+
+//   return pad(date.getFullYear(), 4)
+//     + "-" + pad(date.getMonth() + 1, 2)
+//     + "-" + pad(date.getDate(), 2)
+//     + "T" + pad(date.getHours(), 2)
+//     + ":" + pad(date.getMinutes(), 2)
+//     + ":" + pad(date.getSeconds(), 2)
+//     + "." + pad(date.getMilliseconds(), 3)
+//     + (offset > 0 ? "-" : "+")
+//     + pad(Math.floor(Math.abs(offset) / 60), 2)
+//     + ":" + pad(Math.abs(offset) % 60, 2);
+// }
   const jujulib = exports.jujulib;
   const macaroonlib = require('js-macaroon');
 
